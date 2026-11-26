@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INVENTORY PRO</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">INVENTORY <span>PRO</span></div>
+  <div class="subtitle">GESTIÓN EMPRESARIAL</div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="menu-title">MENÚ PRINCIPAL</div>
+  <button class="nav active" data-page="dashboard">▦ Dashboard</button>
+  <button class="nav" data-page="categorias">▤ Categorías</button>
+  <button class="nav" data-page="productos">▣ Productos</button>
+  <button class="nav" data-page="proveedores">♙ Proveedores</button>
+  <button class="nav" data-page="compras">＋ Compras</button>
+  <button class="nav" data-page="ventas">－ Ventas</button>
+  <button class="nav" data-page="kardex">☷ Kardex</button>
+</aside>
+
+<main id="content">
+  <section class="page active" id="dashboard">
+    <h1>Panel principal</h1>
+    <p class="muted">Resumen general del inventario.</p>
+    <div class="stats">
+      <div class="stat"><small>Productos</small><strong id="totalProductos">0</strong></div>
+      <div class="stat"><small>Categorías</small><strong id="totalCategorias">0</strong></div>
+      <div class="stat"><small>Proveedores</small><strong id="totalProveedores">0</strong></div>
+      <div class="stat"><small>Unidades disponibles</small><strong id="totalStock">0</strong></div>
+    </div>
+    <div class="panel">
+      <h2>Stock bajo</h2>
+      <div id="alertas"></div>
+    </div>
+  </section>
+
+  <section class="page" id="categorias">
+    <h1>Categorías</h1>
+    <div class="panel">
+      <form id="formCategoria">
+        <input id="categoriaNombre" placeholder="Nombre de categoría" required>
+        <button class="primary">Agregar categoría</button>
+      </form>
+      <div id="listaCategorias"></div>
+    </div>
+  </section>
+
+  <section class="page" id="productos">
+    <h1>Productos</h1>
+    <div class="panel">
+      <form id="formProducto">
+        <input id="productoNombre" placeholder="Nombre del producto" required>
+        <input id="productoCodigo" placeholder="Código" required>
+        <select id="productoCategoria" required></select>
+        <input id="productoPrecio" type="number" min="0" step="0.01" placeholder="Precio unitario" required>
+        <input id="productoStock" type="number" min="0" step="1" placeholder="Stock inicial" required>
+        <input id="productoMinimo" type="number" min="0" step="1" placeholder="Stock mínimo" value="5" required>
+        <button class="primary">Registrar producto</button>
+      </form>
+      <div id="listaProductos"></div>
+    </div>
+  </section>
+
+  <section class="page" id="proveedores">
+    <h1>Proveedores</h1>
+    <div class="panel">
+      <form id="formProveedor">
+        <input id="proveedorNombre" placeholder="Nombre o empresa" required>
+        <input id="proveedorTelefono" placeholder="Teléfono">
+        <input id="proveedorCorreo" type="email" placeholder="Correo">
+        <input id="proveedorDireccion" placeholder="Dirección">
+        <button class="primary">Registrar proveedor</button>
+      </form>
+      <div id="listaProveedores"></div>
+    </div>
+  </section>
+
+  <section class="page" id="compras">
+    <h1>Compras / Entradas</h1>
+    <div class="panel">
+      <form id="formCompra">
+        <select id="compraProducto" required></select>
+        <select id="compraProveedor"></select>
+        <input id="compraCantidad" type="number" min="1" step="1" placeholder="Cantidad" required>
+        <input id="compraNota" placeholder="Observación">
+        <button class="primary">Registrar compra</button>
+      </form>
+      <div id="listaCompras"></div>
+    </div>
+  </section>
+
+  <section class="page" id="ventas">
+    <h1>Ventas / Salidas</h1>
+    <div class="panel">
+      <form id="formVenta">
+        <select id="ventaProducto" required></select>
+        <input id="ventaCantidad" type="number" min="1" step="1" placeholder="Cantidad" required>
+        <input id="ventaNota" placeholder="Cliente o referencia">
+        <button class="primary">Registrar venta</button>
+      </form>
+      <div id="listaVentas"></div>
+    </div>
+  </section>
+
+  <section class="page" id="kardex">
+    <h1>Kardex</h1>
+    <div class="panel">
+      <select id="filtroKardex">
+        <option value="">Todos los productos</option>
+      </select>
+      <div id="listaKardex"></div>
+    </div>
+  </section>
+</main>
+</div>
+<footer>INVENTORY PRO · PROTOTIPO 1.0</footer>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+<script src="js/categorias.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/proveedores.js"></script>
+<script src="js/compras.js"></script>
+<script src="js/ventas.js"></script>
+<script src="js/kardex.js"></script>
+</body>
+</html>
