@@ -1,0 +1,58 @@
+
+document.querySelectorAll(".nav").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".nav").forEach(x =>
+      x.classList.remove("active")
+    );
+    document.querySelectorAll(".page").forEach(x =>
+      x.classList.remove("active")
+    );
+    b.classList.add("active");
+    document.getElementById(b.dataset.page).classList.add("active");
+  });
+});
+
+function tabla(id, encabezados, filas) {
+  const el = document.getElementById(id);
+  if (!filas.length) {
+    el.innerHTML = '<div class="empty">No hay registros todavía.</div>';
+    return;
+  }
+  el.innerHTML = '<div class="table-wrap"><table><thead><tr>' +
+    encabezados.map(x => `<th>${x}</th>`).join("") +
+    '</tr></thead><tbody>' + filas.join("") +
+    '</tbody></table></div>';
+}
+
+function opciones(id, datos, texto) {
+  document.getElementById(id).innerHTML =
+    `<option value="">${texto}</option>` +
+    datos.map(x => `<option value="${x.id}">${escapar(x.nombre)}</option>`).join("");
+}
+
+function nombreProducto(id) {
+  return db.productos.find(x => x.id === id)?.nombre || "—";
+}
+
+function actualizarDashboard() {
+  document.getElementById("totalProductos").textContent = db.productos.length;
+  document.getElementById("totalCategorias").textContent = db.categorias.length;
+  document.getElementById("totalProveedores").textContent = db.proveedores.length;
+  document.getElementById("totalStock").textContent =
+    db.productos.reduce((a, p) => a + p.stock, 0);
+
+  const bajos = db.productos.filter(p => p.stock <= p.minimo);
+  document.getElementById("alertas").innerHTML = bajos.length
+    ? bajos.map(p => `<p>${escapar(p.nombre)}: <b>${p.stock}</b> unidades</p>`).join("")
+    : '<p class="empty">No hay alertas de stock.</p>';
+}
+
+function actualizarTodo() {
+  actualizarDashboard();
+  if (typeof renderCategorias === "function") renderCategorias();
+  if (typeof renderProductos === "function") renderProductos();
+  if (typeof renderProveedores === "function") renderProveedores();
+  if (typeof renderCompras === "function") renderCompras();
+  if (typeof renderVentas === "function") renderVentas();
+  if (typeof renderKardex === "function") renderKardex();
+}
